@@ -9,7 +9,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mysql-headless
-  namespace : expense
+  namespace: expense
   labels:
     app: mysql
     project: expense
@@ -33,7 +33,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mysql
-  namespace : expense
+  namespace: expense
   labels:
     app: mysql
     project: expense
