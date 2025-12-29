@@ -74,7 +74,7 @@ spec:
       - name: mysql
         image: shahabsb/expense-mysql:1.0.0
         volumeMounts:
-        - name: www
+        - name: mysql
           mountPath: /var/lib/mysql
   # Instead of creating a PVC resource, you can directly provide in statefulset
   volumeClaimTemplates:
