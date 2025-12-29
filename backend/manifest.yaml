@@ -1,0 +1,59 @@
+#  if we keep env varibales in image then if we want to change the env variable we need to build the image again so 
+# we will use ConfigMap to store the env variable and easy to change the env varibale at run time through manifest files
+
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: backend
+  namespace: expense
+data:
+  DB_HOST: mysql
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: expense
+  labels:
+    app: backend
+    tier: backend
+    project: expense
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+      tier: backend
+      project: expense
+  template:
+    metadata:
+      labels:
+        app: backend
+        tier: backend
+        project: expense
+    spec:
+      containers:
+      - name: nginx
+        image: shahabsb/expense-backend:1.0.0
+        envFrom:
+        - configMapRef:
+            name: backend
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: expense
+spec:
+  selector: # labels are used as selectors
+    app: backend
+    tier: backend
+    project: expense
+  ports:
+  - protocol: TCP
+    port: 8080 # service port
+    targetPort: 8080
