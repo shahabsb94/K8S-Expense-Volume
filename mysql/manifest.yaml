@@ -27,8 +27,6 @@ spec:
 
 ---
 
-## normal loadbalancer service
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -49,8 +47,6 @@ spec:
     targetPort: 3306
 
 ---
-
-# statefull set
 
 apiVersion: apps/v1
 kind: StatefulSet
